@@ -3,22 +3,22 @@ interface SerperResult {
    link: string,
    position: number,
 }
+const serper = {
+    id: "serper",
+    name: "Serper.dev",
+    website: "serper.dev",
+    allowsCity: true,
 
-const serper: ScraperSettings = {
-   id: 'serper',
-   name: 'Serper.dev',
-   website: 'serper.dev',
-   allowsCity: true,
-   scrapeURL: (keyword, settings, countryData) => {
+scrapeURL: (keyword, settings, countryData) => {
       const country = keyword.country || 'US';
       const lang = countryData[country][2];
 
       const query = encodeURIComponent(keyword.keyword);
       const baseURL = `https://google.serper.dev/search?q=${query}&gl=${country}&hl=${lang}&num=100&apiKey=${settings.scaping_api}`;
 
-      // Añadir location solo si hay ciudad
+      // Aadir location solo si hay ciudad
       const locationParam = (keyword.city)
-         ? `&location=${encodeURIComponent(keyword.city + ', ' + countryData[country][0])}`
+         ? `&location=${encodeURIComponent(keyword.city)}`
          : '';
 
       const url = baseURL + locationParam;
